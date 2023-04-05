@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+body {
+  background-color: rgb(27, 27, 27);
+}
+
+.navbar {
+  display:flex;
+  justify-content: space-between;
+  background-color: rgb(190, 22, 190)
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  /* use flexbox to align items */
+  justify-content: space-between;
+  /* distribute items evenly */
+  align-items: center;
+  /* center items vertically */
+  padding: 1rem;
+  margin: 1rem;
+}
+
+li {
+  margin-right: 1rem;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: rgb(28, 28, 179);
+}
