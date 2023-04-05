@@ -24,8 +24,8 @@ ul {
   /* distribute items evenly */
   align-items: center;
   /* center items vertically */
-  padding: 1rem;
-  margin: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom:0.5rem;
 }
 
 li {
