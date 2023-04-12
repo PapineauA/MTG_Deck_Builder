@@ -1,12 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 
 function Header() {
-    fetch ("http://127.0.0.1:5000/test").then((res)=>{
-        return res.json()
-    })
-    .then((data)=> {
-        console.log(data)
-    })
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/test');
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); // Empty dependency array ensures this effect runs only once when the component mounts
+    console.log(data)
     return (
         <header>
             <nav className="navbar">
