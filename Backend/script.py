@@ -1,7 +1,7 @@
 import psycopg2
 from mtgsdk import Card
 
-# Set up the database connection parameters
+# Connect to the database
 conn = psycopg2.connect(
     host="localhost",
     database="deck_builder",
@@ -10,23 +10,44 @@ conn = psycopg2.connect(
     port="5432"
 )
 
-# Open a cursor to perform database operations
+# Create a cursor
 cur = conn.cursor()
 
-# Fetch all the cards
-cards = Card.where(gameFormat='Commander').all()
+# Define the SQL query to create the table
+create_table_query = '''CREATE TABLE IF NOT EXISTS cards
+                    (id SERIAL PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    mana_cost TEXT,
+                    cmc INTEGER,
+                    colors TEXT[],
+                    color_identity TEXT[],
+                    type_line TEXT,
+                    supertypes TEXT[],
+                    set_name TEXT,
+                    oracle_text TEXT,
+                    power TEXT,
+                    toughness TEXT,
+                    loyalty TEXT,
+                    image_url TEXT);'''
 
-# Loop through each card and insert it into the database
-for card in cards:
-    cur.execute("""
-        INSERT INTO cards(id, name, manaCost, cmc, colors, colorIdentity, 
-                          type, supertypes, set, text, power, toughness, loyalty)
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
-    """, (card.id, card.name, card.mana_cost, card.cmc, card.colors, card.color_identity,
-          card.type, card.supertypes, card.set_name, card.text, card.power, card.toughness, card.loyalty))
+# Execute the query to create the table
+cur.execute(create_table_query)
 
-# Commit the changes to the database
+# Commit the changes
 conn.commit()
+
+# Get all the commander cards from the MTG SDK
+commander_cards = Card.where(game_format='commander').all()
+
+# Loop through the commander cards and insert them into the database
+for card in commander_cards:
+    print(f"Inserting card {card.name} into database...")
+
+    insert_query = f"""INSERT INTO cards (name, mana_cost, cmc, colors, color_identity, type_line, supertypes, set_name, oracle_text, power, toughness, loyalty, image_url)
+                    VALUES ('{card.name}', '{card.mana_cost}', {card.cmc}, ARRAY{card.colors}, ARRAY{card.color_identity}, '{card.type_line}', ARRAY{card.supertypes}, '{card.set_name}', '{card.oracle_text}', '{card.power}', '{card.toughness}', '{card.loyalty}', '{card.image_url}');"""
+
+    cur.execute(insert_query)
+    conn.commit()
 
 # Close the cursor and connection
 cur.close()
