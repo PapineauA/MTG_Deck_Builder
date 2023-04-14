@@ -1,4 +1,5 @@
 import psycopg2
+from psycopg2 import sql
 from mtgsdk import Card
 
 # Connect to the database
@@ -21,10 +22,10 @@ create_table_query = '''CREATE TABLE IF NOT EXISTS cards
                     cmc INTEGER,
                     colors TEXT[],
                     color_identity TEXT[],
-                    type_line TEXT,
+                    type TEXT,
                     supertypes TEXT[],
                     set_name TEXT,
-                    oracle_text TEXT,
+                    text TEXT,
                     power TEXT,
                     toughness TEXT,
                     loyalty TEXT,
@@ -43,8 +44,21 @@ commander_cards = Card.where(game_format='commander').all()
 for card in commander_cards:
     print(f"Inserting card {card.name} into database...")
 
-    insert_query = f"""INSERT INTO cards (name, mana_cost, cmc, colors, color_identity, type_line, supertypes, set_name, oracle_text, power, toughness, loyalty, image_url)
-                    VALUES ('{card.name}', '{card.mana_cost}', {card.cmc}, ARRAY{card.colors}, ARRAY{card.color_identity}, '{card.type_line}', ARRAY{card.supertypes}, '{card.set_name}', '{card.oracle_text}', '{card.power}', '{card.toughness}', '{card.loyalty}', '{card.image_url}');"""
+    insert_query = sql.SQL("""INSERT INTO cards (name, mana_cost, cmc, colors, color_identity, type, supertypes, set_name, text, power, toughness, loyalty, image_url)
+                    VALUES ({name}, {mana_cost}, {cmc}, {colors}, {color_identity}, {type}, {supertypes}, {set_name}, {text}, {power}, {toughness}, {loyalty}, {image_url})""").format(
+        name=sql.Literal(card.name),
+        mana_cost=sql.Literal(card.mana_cost),
+        cmc=sql.Literal(card.cmc),
+        colors=sql.Literal(card.colors),
+        color_identity=sql.Literal(card.color_identity),
+        type=sql.Literal(card.type),
+        supertypes=sql.Literal(card.supertypes),
+        set_name=sql.Literal(card.set_name),
+        text=sql.Literal(card.text),
+        power=sql.Literal(card.power),
+        toughness=sql.Literal(card.toughness),
+        loyalty=sql.Literal(card.loyalty),
+        image_url=sql.Literal(card.image_url))
 
     cur.execute(insert_query)
     conn.commit()
