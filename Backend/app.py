@@ -61,16 +61,6 @@ def fetch_unique_commander_cards(limit):
     return card_data_dict
 
 
-# Database connection parameters
-conn_params = {
-    "host": "localhost",
-    "port": 1111,
-    "dbname": "deck_builder",
-    "user": "your_username",
-    "password": "your_password",
-}
-
-
 @app.route('/test')
 def get_test():
     commanderCards = fetch_unique_commander_cards(500)
