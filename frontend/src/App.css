@@ -41,3 +41,16 @@ a {
 a:hover {
   color: rgb(28, 28, 179);
 }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  grid-gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
