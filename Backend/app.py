@@ -20,9 +20,9 @@ app = Flask(__name__)
 # Fetching data from db
 def fetch_data(fetchtext):
     cur = conn.cursor()
-    querytext = f"SELECT name FROM cards WHERE name ILIKE '%{fetchtext}%';"
+    querytext = f"SELECT DISTINCT name FROM cards WHERE id IN (SELECT id FROM cards GROUP BY id HAVING COUNT(*) > 0) AND name ILIKE '%{fetchtext}%' ORDER BY name;"
     cur.execute(querytext)
-    return cur.fetchall()
+    return cur.fetchmany(20)
 
 
 @app.route('/')

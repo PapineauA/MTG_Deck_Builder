@@ -4,20 +4,6 @@ import "./searchbox.css";
 const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredElements, setFilteredElements] = useState([]);
-  const elements = [
-    "apple",
-    "banana",
-    "blueberry",
-    "grape",
-    "kiwi",
-    "lemon",
-    "mango",
-    "orange",
-    "pear",
-    "pineapple",
-    "raspberry",
-    "strawberry",
-  ];
   const handleChange = async (e) => {
     setSearchTerm(e.target.value);
     try {
@@ -25,17 +11,18 @@ const SearchBox = () => {
         const response = await fetch(`/cardsearch/${e.target.value}`);
         const data = await response.json();
         console.log(data);
+        const searchResults = data.filter((element) => {
+          console.log(element);
+          return element[0]
+            .toLowerCase()
+            .includes(e.target.value.toLowerCase());
+        });
+        setFilteredElements(searchResults);
+      } else {
+        setFilteredElements([]);
       }
     } catch (error) {
       console.error("Error fetching data:", error);
-    }
-    if (e.target.value) {
-      const searchResults = elements.filter((element) =>
-        element.toLowerCase().includes(e.target.value.toLowerCase())
-      );
-      setFilteredElements(searchResults);
-    } else {
-      setFilteredElements([]);
     }
   };
 
@@ -51,7 +38,7 @@ const SearchBox = () => {
         <ul className="autocomplete-list">
           {filteredElements.map((element, index) => (
             <li key={index} onClick={() => setSearchTerm(element)}>
-              {element}
+              {element[0]}
             </li>
           ))}
         </ul>
