@@ -24,6 +24,7 @@ const SearchBox = () => {
       if (e.target.value) {
         const response = await fetch(`/cardsearch/${e.target.value}`);
         const data = await response.json();
+        console.log(data);
       }
     } catch (error) {
       console.error("Error fetching data:", error);

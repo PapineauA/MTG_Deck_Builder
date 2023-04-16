@@ -18,11 +18,10 @@ app = Flask(__name__)
 
 
 # Fetching data from db
-def fetch_data(searchtext):
+def fetch_data(fetchtext):
     cur = conn.cursor()
-    querytext = f"SELECT name FROM cards WHERE name ILIKE '%{searchtext}%';"
+    querytext = f"SELECT name FROM cards WHERE name ILIKE '%{fetchtext}%';"
     cur.execute(querytext)
-    print(cur.fetchall())
     return cur.fetchall()
 
 
