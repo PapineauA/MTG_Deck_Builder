@@ -55,10 +55,6 @@ nav a:hover {
   align-items: center;
 }
 
-h1 {
-  color: lightgray;
-}
-
-p {
+h1, h2, p {
   color: lightgray;
 }

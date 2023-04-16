@@ -19,6 +19,7 @@ const SearchBox = () => {
     "strawberry"
   ];
   const handleChange = (e) => {
+    fetch("/cardsearch/abc").then(res => res.json()).then(data => console.log(data))
     setSearchTerm(e.target.value);
     if (e.target.value) {
       const searchResults = elements.filter((element) =>

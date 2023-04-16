@@ -8,9 +8,10 @@ def home():
     return 'This is the homepage.'
 
 
-@app.route('/cardsearch')
-def card_search():
-    return 'This is the card search page.'
+@app.route('/cardsearch/<searchtext>')
+def card_search(searchtext):
+    print(searchtext)
+    return jsonify('This is the card search page.')
 
 
 @app.route('/decks')
