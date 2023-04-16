@@ -1,6 +1,28 @@
 from flask import Flask, jsonify
+import os
+from dotenv import load_dotenv
+import psycopg2
+
+# Initiating environment variables
+load_dotenv()
+conn = psycopg2.connect(
+    host=os.getenv("host"),
+    database=os.getenv("database"),
+    user=os.getenv("user"),
+    password=os.getenv("password"),
+    port=os.getenv("port"),
+)
+
 
 app = Flask(__name__)
+
+# Fetching data from db
+
+
+def fetch_data(searchtext):
+    query = f"SELECT name FROM cards WHERE name ILIKE '%{searchtext}%';"
+    result = db.engine.execute(query)
+    return result.fetchall()
 
 
 @app.route('/')
@@ -10,8 +32,7 @@ def home():
 
 @app.route('/cardsearch/<searchtext>')
 def card_search(searchtext):
-    print(searchtext)
-    return jsonify('This is the card search page.')
+    return jsonify({"text": 'This is the card search page.'})
 
 
 @app.route('/decks')
