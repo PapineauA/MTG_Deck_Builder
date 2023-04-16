@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./searchbox.css";
+import NoImageFound from "./No Image Found.png";
 
 const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,10 +36,14 @@ const SearchBox = () => {
         onChange={handleChange}
       />
       {filteredElements.length > 0 && (
-        <ul className="autocomplete-list">
+        <ul className="autocomplete-list grid-container">
           {filteredElements.map((element, index) => (
-            <li key={index} onClick={() => setSearchTerm(element)}>
-              {element[0]}
+            <li key={index} onClick={() => setSearchTerm(element[0])}>
+              {element[1] ? (
+                <img src={element[1]} />
+              ) : (
+                <img src={NoImageFound} />
+              )}
             </li>
           ))}
         </ul>

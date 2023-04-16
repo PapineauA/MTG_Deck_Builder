@@ -1,12 +1,15 @@
-import React from 'react';
-import SearchBox from './searchbox';
+import React from "react";
+import SearchBox from "./searchbox";
 
 function CardSearch() {
   return (
     <div>
-        <SearchBox />
       <h1>Card Search</h1>
-      <p>This is the Card Search component.</p>
+      <p>
+        Just about every Magic: The Gathering (commander card) is available to
+        search in the database to make your perfect deck.
+      </p>
+      <SearchBox />
     </div>
   );
 }

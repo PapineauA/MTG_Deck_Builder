@@ -4,7 +4,7 @@
 }
 
 .search-box input {
-    width: 100%;
+    width: 60%;
     padding: 8px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -13,11 +13,10 @@
 .autocomplete-list {
     position: absolute;
     z-index: 1;
-    width: 100%;
-    margin: 0;
+    width: 98.76%;
     padding: 0;
     list-style: none;
-    background-color: white;
+    background-color: rgb(27, 27, 27);
     border: 1px solid #ccc;
     border-radius: 4px;
 }
@@ -25,8 +24,17 @@
 .autocomplete-list li {
     padding: 8px 12px;
     cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
 }
 
 .autocomplete-list li:hover {
-    background-color: #eee;
+    background-color: #e4d6d4;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 10px;
+    padding: 10px;
 }

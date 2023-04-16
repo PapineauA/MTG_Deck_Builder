@@ -20,7 +20,7 @@ app = Flask(__name__)
 # Fetching data from db
 def fetch_data(fetchtext):
     cur = conn.cursor()
-    querytext = f"SELECT DISTINCT name FROM cards WHERE id IN (SELECT id FROM cards GROUP BY id HAVING COUNT(*) > 0) AND name ILIKE '%{fetchtext}%' ORDER BY name;"
+    querytext = f"WITH ranked_cards AS (SELECT name, image_url, ROW_NUMBER() OVER (PARTITION BY name ORDER BY id) AS row_num FROM cards WHERE id IN (SELECT id FROM cards GROUP BY id HAVING COUNT(*) > 0) AND name ILIKE '%{fetchtext}%') SELECT name, image_url FROM ranked_cards WHERE row_num = 1 ORDER BY name;"
     cur.execute(querytext)
     return cur.fetchmany(20)
 
