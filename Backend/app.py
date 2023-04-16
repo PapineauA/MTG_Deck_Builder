@@ -16,13 +16,14 @@ conn = psycopg2.connect(
 
 app = Flask(__name__)
 
+
 # Fetching data from db
-
-
 def fetch_data(searchtext):
-    query = f"SELECT name FROM cards WHERE name ILIKE '%{searchtext}%';"
-    result = db.engine.execute(query)
-    return result.fetchall()
+    cur = conn.cursor()
+    querytext = f"SELECT name FROM cards WHERE name ILIKE '%{searchtext}%';"
+    cur.execute(querytext)
+    print(cur.fetchall())
+    return cur.fetchall()
 
 
 @app.route('/')
@@ -32,7 +33,7 @@ def home():
 
 @app.route('/cardsearch/<searchtext>')
 def card_search(searchtext):
-    return jsonify({"text": 'This is the card search page.'})
+    return jsonify(fetch_data(searchtext))
 
 
 @app.route('/decks')
