@@ -25,11 +25,13 @@ def fetch_data(fetchtext):
     return cur.fetchmany(20)
 
 
+# Brings you to the homepage. Hosts the read me on the website.
 @app.route('/')
 def home():
     return 'This is the homepage.'
 
 
+# Fetch information for the card search component.
 @app.route('/cardsearch/<searchtext>')
 def card_search(searchtext):
     return jsonify(fetch_data(searchtext))
@@ -38,6 +40,16 @@ def card_search(searchtext):
 @app.route('/decks')
 def decks():
     return 'This is the decks page.'
+
+
+@app.route('/signin')
+def signin():
+    return 'This is the sign in page.'
+
+
+@app.route('/signup')
+def signup():
+    return 'This is the sign up page'
 
 
 if __name__ == '__main__':
