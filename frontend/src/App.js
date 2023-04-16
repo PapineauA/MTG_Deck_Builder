@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 function App() {
   return (
     <Router>
+      <Header />
       <div className="App">
         <Routes>
           <Route exact path="/" Component={Home} />

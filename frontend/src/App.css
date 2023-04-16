@@ -16,7 +16,7 @@ body {
   background-color: rgb(190, 22, 190)
 }
 
-ul {
+nav ul {
   list-style: none;
   display: flex;
   /* use flexbox to align items */
@@ -25,20 +25,20 @@ ul {
   align-items: center;
   /* center items vertically */
   padding-top: 0.5rem;
-  padding-bottom:0.5rem;
+  padding-bottom: 0.5rem;
 }
 
-li {
+nav li {
   margin-right: 1rem;
 }
 
-a {
+nav a {
   text-decoration: none;
   color: white;
   transition: color 0.2s ease-in-out;
 }
 
-a:hover {
+nav a:hover {
   color: rgb(28, 28, 179);
 }
 
@@ -53,4 +53,12 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+h1 {
+  color: lightgray;
+}
+
+p {
+  color: lightgray;
 }
