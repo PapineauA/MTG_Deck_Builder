@@ -1,12 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
+import "./signup.css";
 
-function SignIn() {
+const SignUp = () => {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   return (
-    <div>
-      <h1>Sign In</h1>
-      <p>This is the sign in component.</p>
-    </div>
+    <form className="signin" onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="username">Username: </label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="email">Email: </label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+      </div>
+      <div>
+        <label htmlFor="password">Password: </label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+      </div>
+      <button type="submit">Sign In</button>
+    </form>
   );
-}
+};
 
-export default SignIn;
+export default SignUp;

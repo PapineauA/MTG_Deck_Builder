@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./searchbox.css";
 import NoImageFound from "./No Image Found.png";
 
-const SearchBox = () => {
+const SearchBoxCards = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredElements, setFilteredElements] = useState([]);
   const handleChange = async (e) => {
@@ -52,4 +52,4 @@ const SearchBox = () => {
   );
 };
 
-export default SearchBox;
+export default SearchBoxCards;

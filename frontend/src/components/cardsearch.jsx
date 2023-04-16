@@ -1,5 +1,5 @@
 import React from "react";
-import SearchBox from "./searchbox";
+import SearchBoxCards from "./searchboxcards";
 
 function CardSearch() {
   return (
@@ -9,7 +9,7 @@ function CardSearch() {
         Just about every Magic: The Gathering (commander card) is available to
         search in the database to make your perfect deck.
       </p>
-      <SearchBox />
+      <SearchBoxCards />
     </div>
   );
 }
